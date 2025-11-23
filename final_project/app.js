@@ -9,7 +9,7 @@ import paymentRouter from "./routes/payment.js";
 import connectToMongoDB from "../utils/conectDB.js";
 
 const app = express();
-const port = 3003;
+// const port = 3003;
 // const port = process.env.PORT || 3000;
 
 app.use(
@@ -39,8 +39,8 @@ app.use("/api/post/", postRouter);
 app.use("/api/tag/", tagRouter);
 app.use("/api/payment/", paymentRouter);
 
-app.listen(port, "0.0.0.0", () => {
-  console.log(`Example run on port ${port}!`);
-});
+// app.listen(port, "0.0.0.0", () => {
+//   console.log(`Example run on port ${port}!`);
+// });
 
 export default app;
