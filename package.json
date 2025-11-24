@@ -26,7 +26,6 @@
     "joi-objectid": "^4.0.2",
     "jsdom": "^27.2.0",
     "jsonwebtoken": "^9.0.2",
-    "langchain": "^0.3.31",
     "mongoose": "^8.12.1",
     "nodemon": "^3.1.9",
     "openai": "^5.15.0",
