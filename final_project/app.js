@@ -24,27 +24,8 @@ const allowedOrigins = [
   "https://party-cards-with-react-node-2v9lmaa6r-yosef246s-projects.vercel.app",
 ];
 
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (!origin) return callback(null, true);
-      if (allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true,
-    preflightContinue: false,
-    optionsSuccessStatus: 204,
-  })
-);
-
 app.use((req, res, next) => {
   const origin = req.headers.origin;
-
   if (allowedOrigins.includes(origin)) {
     res.setHeader("Access-Control-Allow-Origin", origin);
   }
@@ -57,14 +38,11 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Credentials", "true");
 
   if (req.method === "OPTIONS") {
-    return res.status(204).send("");
+    return res.status(204).send();
   }
 
   next();
 });
-
-// חובה לתמוך ב-OPTIONS preflight
-app.options("*", cors());
 
 //middleware - לייבוא המידע שנכנס
 app.use(express.json());

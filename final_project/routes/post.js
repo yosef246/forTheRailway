@@ -93,7 +93,7 @@ router.post("/", [verifyToken], async (req, res) => {
 });
 
 //PUT post
-router.put("/:id", [verifyToken, isAdmin], async (req, res) => {
+router.put("/:id", [verifyToken], async (req, res) => {
   Object.keys(req.body).forEach((key) => {
     //אם הערך שווה למערך אז תיכנס לתוך המערך ותבדוק האם יש בעיה אבל תשאיר לי אותו כמערך
     if (Array.isArray(req.body[key])) {
