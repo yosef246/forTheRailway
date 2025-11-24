@@ -18,7 +18,7 @@ const app = express();
 app.use(
   cors({
     origin: [
-      "http://localhost:3000",
+      "http://localhost:3000", //לוקאלי
       "https://party-cards-with-react-node-js.vercel.app",
     ],
     credentials: true,
@@ -53,4 +53,4 @@ app.use("/payment", paymentRouter);
 
 // export default app;
 
-export default serverless(app);
+export const handler = serverless(app);
