@@ -21,6 +21,7 @@ dotenv.config();
 const allowedOrigins = [
   "http://localhost:3000",
   "https://party-cards-with-react-node-js.vercel.app",
+  "https://party-cards-with-react-node-2v9lmaa6r-yosef246s-projects.vercel.app",
 ];
 
 app.use(
