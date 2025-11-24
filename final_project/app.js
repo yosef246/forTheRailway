@@ -13,15 +13,14 @@ import connectToMongoDB from "../utils/conectDB.js";
 const app = express();
 // const port = 3003;
 const port = process.env.PORT || 3000;
+// CORS middleware
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://party-cards-with-react-node-js.vercel.app",
+];
 
-// CORS middleware for all routes
 app.use((req, res, next) => {
-  const allowedOrigins = [
-    "http://localhost:3000",
-    "https://party-cards-with-react-node-js.vercel.app",
-  ];
   const origin = req.headers.origin;
-
   if (allowedOrigins.includes(origin)) {
     res.setHeader("Access-Control-Allow-Origin", origin);
   }
@@ -34,14 +33,10 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Credentials", "true");
 
   if (req.method === "OPTIONS") {
-    return res.sendStatus(200); // reply to preflight
+    return res.sendStatus(200);
   }
-
   next();
 });
-
-// חובה לתמוך ב-OPTIONS preflight
-app.options("*", cors());
 
 //env מאפשר לי להשתמש בערכים שנמצאים בקובץ
 dotenv.config();
