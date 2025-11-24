@@ -14,29 +14,31 @@ const app = express();
 // const port = 3003;
 const port = process.env.PORT || 3000;
 
-// מאפשר CORS דינמי לפי ה-origin
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      // הדפסה לוג לצורך בדיקה
-      console.log("CORS origin:", origin);
+// CORS middleware for all routes
+app.use((req, res, next) => {
+  const allowedOrigins = [
+    "http://localhost:3000",
+    "https://party-cards-with-react-node-js.vercel.app",
+  ];
+  const origin = req.headers.origin;
 
-      // מאפשר localhost וגם האתר ב-Vercel
-      if (
-        !origin ||
-        origin.includes("localhost") ||
-        origin.includes("vercel.app")
-      ) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true,
-  })
-);
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  }
+
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET,POST,PUT,PATCH,DELETE,OPTIONS"
+  );
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type,Authorization");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200); // reply to preflight
+  }
+
+  next();
+});
 
 // חובה לתמוך ב-OPTIONS preflight
 app.options("*", cors());
