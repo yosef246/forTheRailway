@@ -14,30 +14,31 @@ const app = express();
 // const port = 3003;
 const port = process.env.PORT || 3000;
 
-// app.use(
-//   cors({
-//     origin: [
-//       "http://localhost:3000", //לוקאלי
-//       "https://party-cards-with-react-node-js.vercel.app",
-//     ],
-//     credentials: true,
-//   })
-// );
+// מאפשר CORS דינמי לפי ה-origin
 app.use(
   cors({
-    origin: [
-      "http://localhost:3000",
-      "https://party-cards-with-react-node-js.vercel.app",
-    ],
+    origin: (origin, callback) => {
+      // הדפסה לוג לצורך בדיקה
+      console.log("CORS origin:", origin);
+
+      // מאפשר localhost וגם האתר ב-Vercel
+      if (
+        !origin ||
+        origin.includes("localhost") ||
+        origin.includes("vercel.app")
+      ) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
-    preflightContinue: false,
-    optionsSuccessStatus: 200,
   })
 );
 
-// חובה לתמוך ב-OPTIONS – אחרת serverless חונק את הבקשה
+// חובה לתמוך ב-OPTIONS preflight
 app.options("*", cors());
 
 //env מאפשר לי להשתמש בערכים שנמצאים בקובץ
