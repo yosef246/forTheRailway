@@ -3,10 +3,10 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from "dotenv";
 
-import newUserRouter from "./final_project/routes/auth.js";
-import postRouter from "./final_project/routes/post.js";
-import tagRouter from "./final_project/routes/tag.js";
-import paymentRouter from "./final_project/routes/payment.js";
+import newUserRouter from "./routes/auth.js";
+import postRouter from "./routes/post.js";
+import tagRouter from "./routes/tag.js";
+import paymentRouter from "./routes/payment.js";
 
 import connectToMongoDB from "./utils/conectDB.js";
 
