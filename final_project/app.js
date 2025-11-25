@@ -21,28 +21,23 @@ dotenv.config();
 const allowedOrigins = [
   "http://localhost:3000",
   "https://party-cards-with-react-node-js.vercel.app",
-  "https://party-cards-with-react-node-2v9lmaa6r-yosef246s-projects.vercel.app",
 ];
 
-app.use((req, res, next) => {
-  const origin = req.headers.origin;
-  if (allowedOrigins.includes(origin)) {
-    res.setHeader("Access-Control-Allow-Origin", origin);
-  }
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
 
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET,POST,PUT,PATCH,DELETE,OPTIONS"
-  );
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type,Authorization");
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-
-  if (req.method === "OPTIONS") {
-    return res.status(204).send();
-  }
-
-  next();
-});
+      return callback(new Error("Not allowed by CORS"));
+    },
+    credentials: true, // חובה לקוקיז
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "Accept", "Cookie"], // חובה למובייל
+  })
+);
 
 //middleware - לייבוא המידע שנכנס
 app.use(express.json());
