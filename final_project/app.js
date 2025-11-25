@@ -23,9 +23,15 @@ app.use(
       "http://localhost:3000",
       "https://party-cards-with-react-node-js.vercel.app",
     ],
-    credentials: true, // חובה לקוקיז
+    credentials: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization", "Accept"], // חובה למובייל
+    allowedHeaders: [
+      "Content-Type",
+      "Authorization",
+      "Accept",
+      "Cookie",
+      "Set-Cookie",
+    ],
   })
 );
 
