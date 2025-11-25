@@ -18,9 +18,9 @@ export const verifyToken = (req, res, next) => {
   if (req.headers.cookie) {
     //והשני זה הטוקאן עצמו אז כדי לחלץ רק את הטוקאן access_token כיוון שהטוקאן שלנו מורכב משני חלקים אחד השם שלו שזה
     //אני אומר פה לך לקוקיז ותחלץ לי מאחריי ה= רק את הטוקאן כי זה מה שאני צריך כדי לאמת האם יש למשתמש טוקאן
-    const token = req.headers.cookie.split("=")[1];
+    // const token = req.headers.cookie.split("=")[1];
     // const token = request.cookies.get("access_token")?.value; //דרך אחרת ויותר בטוחה לאמת האם קיים למשתמש טוקאן
-    // const token = req.cookies["access_token"]; //עוד דרך לקחת רק את הטוקאן בכדי לבדוק שהוא קיים
+    const token = req.cookies["access_token"]; //עוד דרך לקחת רק את הטוקאן בכדי לבדוק שהוא קיים
     if (!token) return res.status(401).send("Unauthorized");
 
     //process.env.JWT_SECRET-מאמת לי שהטוקאן שנוצר נוצר מה
